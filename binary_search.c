@@ -2,10 +2,7 @@
 
 int main() {
   int a[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-  int t = 7;
-  int low = 0;
-  int high = 9;
-  int found = 0;
+  int t = 7, low = 0, high = 9, found = 0;
 
   while (low <= high) {
     int mid = low + (high - low) / 2;
