@@ -1,40 +1,67 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-void main() {
-  int str[50];
-  int top = 0, n;
-  printf("Enter size of stack");
-  scanf("%d", &n);
-  for (int i = 0; i < n; i++) {
-    printf("Enter element: %d", i + 1);
-    scanf("%d", &str[i]);
-    top++;
-  }
+#define MAX 50
 
-  printf("Final stack is: ");
-  for (int i = top - 1; i >= 0; i--) {
-    printf("%d", str[i]);
+int stack[MAX];
+int top = -1;
+
+void push(int val) {
+  if (top == MAX - 1) {
+    printf("Stack Overflow!\n");
+    return;
   }
+  stack[++top] = val;
+}
+
+void pop() {
+  if (top == -1) {
+    printf("Stack Underflow!\n");
+    return;
+  }
+  printf("Popped element: %d\n", stack[top--]);
+}
+
+void display() {
+  if (top == -1) {
+    printf("Stack is empty.\n");
+    return;
+  }
+  printf("Current stack (top to bottom): ");
+  for (int i = top; i >= 0; i--) {
+    printf("%d ", stack[i]);
+  }
+  printf("\n");
+}
+
+int main() {
+  int choice, val;
+
   while (1) {
-    printf("\n1. Push\n2. Pop\n3. Display\n4. Sort\n5. Exit\n");
-    int choice;
-    scanf("%d", &choice);
+    printf("\n--- Stack Menu ---\n");
+    printf("1. Push\n2. Pop\n3. Display\n4. Exit\n");
+    printf("Enter choice: ");
+    if (scanf("%d", &choice) != 1)
+      break;
+
     switch (choice) {
     case 1:
-      printf("Enter element: ");
-      scanf("%d", &str[top]);
-      top++;
+      printf("Enter integer element: ");
+      scanf("%d", &val);
+      push(val);
       break;
     case 2:
-      top--;
+      pop();
       break;
     case 3:
-      for (int i = top - 1; i >= 0; i--) {
-        printf("%d", str[i]);
-      }
+      display();
       break;
     case 4:
       exit(0);
+    default:
+      printf("Invalid choice! Try again.\n");
     }
   }
+
+  return 0;
 }

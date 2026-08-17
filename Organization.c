@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 struct Employee {
-  char e_name[20];
+  char e_name[50];
   int e_id;
   float e_salary;
 };
@@ -11,26 +11,33 @@ struct Organization {
   struct Employee e[2];
 };
 
-void main() {
-  struct Organization o[2];
-  for (int i = 0; i < 2; i++) {
-    printf("Enter organization name: ");
-    scanf("%s", o[i].o_name);
-    for (int j = 0; j < 2; j++) {
-      printf("Enter employee name: ");
-      scanf("%s", o[i].e[j].e_name);
-      printf("Enter employee id: ");
-      scanf("%d", &o[i].e[j].e_id);
-      printf("Enter employee salary: ");
-      scanf("%f", &o[i].e[j].e_salary);
+int main() {
+  int num_orgs = 2;
+  int num_emps = 2;
+  struct Organization orgs[num_orgs];
+
+  for (int i = 0; i < num_orgs; i++) {
+    printf("\nEnter Organization %d Name: ", i + 1);
+    scanf("%s", orgs[i].o_name);
+
+    for (int j = 0; j < num_emps; j++) {
+      printf("  Enter Employee %d Name: ", j + 1);
+      scanf("%s", orgs[i].e[j].e_name);
+      printf("  Enter Employee ID: ");
+      scanf("%d", &orgs[i].e[j].e_id);
+      printf("  Enter Employee Salary: ");
+      scanf("%f", &orgs[i].e[j].e_salary);
     }
   }
-  for (int i = 0; i < 2; i++) {
-    printf("Organization name: %s\n", o[i].o_name);
-    for (int j = 0; j < 2; j++) {
-      printf("\nEmployee name: %s", o[i].e[j].e_name);
-      printf("\nEmployee id: %d", o[i].e[j].e_id);
-      printf("\nEmployee salary: %f", o[i].e[j].e_salary);
+
+  printf("\n================ Organization Summary ================\n");
+  for (int i = 0; i < num_orgs; i++) {
+    printf("\nOrganization: %s\n", orgs[i].o_name);
+    for (int j = 0; j < num_emps; j++) {
+      printf("  [%d] Name: %-15s | ID: %-5d | Salary: %.2f\n", j + 1,
+             orgs[i].e[j].e_name, orgs[i].e[j].e_id, orgs[i].e[j].e_salary);
     }
   }
+
+  return 0;
 }

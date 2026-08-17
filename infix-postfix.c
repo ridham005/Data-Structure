@@ -1,12 +1,21 @@
 #include <ctype.h>
 #include <stdio.h>
 
-char stack[100];
+#define MAX 100
+
+char stack[MAX];
 int top = -1;
 
-void push(char c) { stack[++top] = c; }
+void push(char c) {
+  if (top < MAX - 1)
+    stack[++top] = c;
+}
 
-char pop() { return stack[top--]; }
+char pop() {
+  if (top >= 0)
+    return stack[top--];
+  return '\0';
+}
 
 int priority(char c) {
   if (c == '^')
@@ -19,42 +28,34 @@ int priority(char c) {
 }
 
 int main() {
-  char infix[100], postfix[100];
-  int i, j = 0;
-  char c;
+  char infix[MAX], postfix[MAX];
+  int j = 0;
 
   printf("Enter infix expression: ");
-  fgets(infix, 100, stdin);
+  if (!fgets(infix, sizeof(infix), stdin))
+    return 0;
 
-  for (i = 0; infix[i] != '\0'; i++) {
-    c = infix[i];
+  for (int i = 0; infix[i] != '\0'; i++) {
+    char c = infix[i];
 
-    if (c == ' ')
+    if (c == ' ' || c == '\n')
       continue;
 
     if (isalnum(c)) {
       postfix[j++] = c;
-    }
-
-    else if (c == '(') {
+    } else if (c == '(') {
       push(c);
-    }
-
-    else if (c == ')') {
+    } else if (c == ')') {
       while (top != -1 && stack[top] != '(')
         postfix[j++] = pop();
-
       if (top != -1)
-        pop();
-    }
-
-    else {
+        pop(); // Discard '('
+    } else {
       while (top != -1 && stack[top] != '(' &&
              (priority(stack[top]) > priority(c) ||
               (priority(stack[top]) == priority(c) && c != '^'))) {
         postfix[j++] = pop();
       }
-
       push(c);
     }
   }
@@ -63,7 +64,6 @@ int main() {
     postfix[j++] = pop();
 
   postfix[j] = '\0';
-
   printf("Postfix expression: %s\n", postfix);
 
   return 0;

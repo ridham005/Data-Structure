@@ -7,15 +7,13 @@ int stack[MAX];
 int top = -1;
 
 void push(int val) {
-  if (top < MAX - 1) {
+  if (top < MAX - 1)
     stack[++top] = val;
-  }
 }
 
 int pop() {
-  if (top >= 0) {
+  if (top >= 0)
     return stack[top--];
-  }
   printf("Error: Stack Underflow!\n");
   return 0;
 }
@@ -47,9 +45,7 @@ int evaluatePostfix(const char *expr) {
       push(num);
     } else if (expr[i] == '+' || expr[i] == '-' || expr[i] == '*' ||
                expr[i] == '/' || expr[i] == '^') {
-      char op = expr[i];
-      i++;
-
+      char op = expr[i++];
       int val2 = pop();
       int val1 = pop();
 
@@ -78,22 +74,14 @@ int evaluatePostfix(const char *expr) {
       i++;
     }
   }
-
   return pop();
 }
 
 int main() {
   char expr[MAX];
 
-  printf("\n Postfix Expression Evaluator \n\n");
-
-  printf("a. Expression: \"2 3 1 * + 9 -\"\n");
-  printf("   Output: %d\n\n", evaluatePostfix("2 3 1 * + 9 -"));
-
-  printf("b. Expression: \"2 2 + 2 / 5 * 7 +\"\n");
-  printf("   Output: %d\n\n", evaluatePostfix("2 2 + 2 / 5 * 7 +"));
-
-  printf("Enter a custom postfix expression: ");
+  printf(
+      "Enter a postfix expression (space-separated, e.g., '2 3 1 * + 9 -'): ");
   if (fgets(expr, sizeof(expr), stdin) != NULL && expr[0] != '\n') {
     int res = evaluatePostfix(expr);
     printf("Result: %d\n", res);
