@@ -1,10 +1,21 @@
 #include <stdio.h>
-void main() {
-  int a[10] = {4, 7, 3, 2, 9, 5, 1, 0, 8, 6};
-  int t = 5;
-  for (int i = 0; i < 10; i++) {
-    if (a[i] == t) {
-      printf("The target element is at index %d", i);
+int main() {
+  int size, search;
+  printf("Name : Ridham Patel");
+  printf("Roll : 25BCP156");
+  printf("Enter the Size of Array :\n");
+  scanf("%d", &size);
+  int a[size];
+  for (int i = 0; i < size; i++) {
+    printf("enter the %d th element:", i);
+    scanf("%d", &a[i]);
+  }
+  printf("enter the element you want to search:");
+  scanf("%d", &search);
+  for (int i = 0; i < size; i++) {
+    if (a[i] == search) {
+      printf("your element found at %d index:\n", i);
     }
   }
+  return 0;
 }
