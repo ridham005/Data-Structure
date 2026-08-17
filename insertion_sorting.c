@@ -2,6 +2,8 @@
 
 void main() {
   int n;
+  printf("Name : Ridham Patel");
+  printf("Roll : 25BCP156");
   printf("Enter the size of array: ");
   scanf("%d", &n);
   int a[n];
